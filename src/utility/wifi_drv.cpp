@@ -1114,6 +1114,33 @@ void WiFiDrv::analogWrite(uint8_t pin, uint8_t value)
     SpiDrv::spiSlaveDeselect();
 }
 
+void WiFiDrv::stopRGBled(uint8_t enable)
+{
+    WAIT_FOR_SLAVE_SELECT();
+    // Send Command
+    SpiDrv::sendCmd(STOP_RGB_LED, PARAM_NUMS_1);
+    SpiDrv::sendParam(&enable, 1, LAST_PARAM);
+
+    // pad to multiple of 4
+    SpiDrv::readChar();
+    SpiDrv::readChar();
+
+    SpiDrv::spiSlaveDeselect();
+    //Wait the reply elaboration
+    SpiDrv::waitForSlaveReady();
+    SpiDrv::spiSlaveSelect();
+
+    // Wait for reply
+    uint8_t _data = 0;
+    uint8_t _dataLen = 0;
+    if (!SpiDrv::waitResponseCmd(STOP_RGB_LED, PARAM_NUMS_1, &_data, &_dataLen))
+    {
+        WARN("error waitResponse");
+        _data = WL_FAILURE;
+    }
+    SpiDrv::spiSlaveDeselect();
+}
+
 int8_t WiFiDrv::downloadFile(const char* url, uint8_t url_len, const char *filename, uint8_t filename_len)
 {
 	WAIT_FOR_SLAVE_SELECT();

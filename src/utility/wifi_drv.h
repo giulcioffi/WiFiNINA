@@ -292,6 +292,7 @@ public:
     static void pinMode(uint8_t pin, uint8_t mode);
     static void digitalWrite(uint8_t pin, uint8_t value);
     static void analogWrite(uint8_t pin, uint8_t value);
+    static void stopRGBled(uint8_t enable);
 
     static int8_t downloadFile(const char* url, uint8_t url_len, const char *filename, uint8_t filename_len);
 

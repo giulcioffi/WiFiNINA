@@ -36,6 +36,16 @@ void WiFiClass::init()
     WiFiDrv::wifiDriverInit();
 }
 
+void WiFiClass::stopRGB(void)
+{
+	WiFiDrv::stopRGBled(1);
+}
+
+void WiFiClass::restartRGB(void)
+{
+	WiFiDrv::stopRGBled(2);
+}
+
 const char* WiFiClass::firmwareVersion()
 {
 	return WiFiDrv::getFwVersion();

@@ -46,6 +46,14 @@ public:
     WiFiClass();
 
     /*
+     * Stop RGB led
+     */
+    void stopRGB(void);
+    /*
+     * REstart RGB led
+     */
+    void restartRGB(void);
+    /*
      * Get firmware version
      */
     static const char* firmwareVersion();
